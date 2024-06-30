@@ -20,24 +20,26 @@ BASE_URL = "https://finnhub.io/api/v1"
 BUCKET_NAME = "stockmarket-airflow-dev-bucket"
 # create tuples for endpoint and file names
 ENDPOINTS_AND_FILE_NAMES = [
-    ("stock/metric?symbol=AAPL&metric=all", "basic_financials_AAPL"),
+    ("stock/metric?symbol=AAPL&metric=perShare", "basic_financials_AAPL"),
     ("stock/profile2?symbol=AAPL", "company_profile2_AAPL"),
     ("stock/insider-transactions?symbol=AAPL", "insider_transactions_AAPL"),
-    ("stock/insider-sentiment?symbol=AAPL&from=2015-01-01&to=2024-03-01", "insider_sentiment_AAPL_2015-01-01_to_2024-03-01"),
-    ("stock/financials-reported?cik=320193&freq=quarterly", "financials_reported_quarterly")
+    ("stock/insider-sentiment?symbol=AAPL&from=2015-01-01&to=2024-03-01", "insider_sentiment_AAPL"),
+    ("stock/financials-reported?cik=320193&freq=quarterly", "financials_reported_quarterly"),
+    ("stock/symbol?exchange=US", "stock_symbol_lookup"),
+    ("/stock/earnings?symbol=AAPL", "earnings_surprises")
 ]
 
 default_args = {
     'depends_on_past': False,
     'owner': 'hitomi',
-    'start_date': datetime(2024, 5, 29),
+    'start_date': datetime(2024, 6, 30),
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
     'schedule_interval':'@daily',
     'catchup': False
 }
 
-@dag(default_args=default_args, schedule='@daily', tags=['first_try'])
+@dag(default_args=default_args, schedule='@daily', tags=['stock_market'])
 def ingest_raw_stock_market_json_file05():
     @task()
     def ingest_raw_json_file_to_s3(endpoint, file_name) -> None:
