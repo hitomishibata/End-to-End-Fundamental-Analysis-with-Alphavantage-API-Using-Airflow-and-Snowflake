@@ -1,4 +1,4 @@
-# Data-Pipelines-for-Stock-Market-API
+# Data Pipelines for Stock Market API
 This project involves building data pipelines using Airflow to extract stock market data from the Finnhub API and load it into an S3 bucket. The data is then managed and analyzed in Snowflake.
 
 ## Introduction
@@ -13,7 +13,11 @@ Automation: Uses Apache Airflow to automate and schedule data pipelines.
 
 ## Requirements
 Python 3.8+
+
 Apache Airflow
+
 Snowflake Account
+
 Finnhub API Key
+
 AWS Account with S3 access
