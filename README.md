@@ -1,4 +1,4 @@
-# Data Pipelines in Airflow for Ingestng Data from Finnhub API and Data Analysis in Snowflake
+# Data Pipelines in Airflow for Ingesting Data from Finnhub API and Data Analysis in Snowflake
 This project involves building data pipelines using Airflow to extract stock market data from the Finnhub API and load it into an S3 bucket. The data is then managed and analyzed in Snowflake.
 
 ## Introduction
