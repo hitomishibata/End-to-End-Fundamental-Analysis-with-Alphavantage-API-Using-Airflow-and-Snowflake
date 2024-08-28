@@ -21,7 +21,6 @@ def get_csv_from_api(topic: str):
     csv_url = f"https://www.alphavantage.co/query?function={topic}&apikey={env.get('API_KEY')}"
     with requests.Session() as s:
         download = s.get(csv_url)
-        download.
 
 def get_json_from_api(topic: str, symbol: str):    
     if symbol is None:
