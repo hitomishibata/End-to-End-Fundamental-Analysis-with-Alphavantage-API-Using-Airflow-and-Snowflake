@@ -5,3 +5,4 @@ pychache/
 lib64
 pyenv
 .env
+venv/
