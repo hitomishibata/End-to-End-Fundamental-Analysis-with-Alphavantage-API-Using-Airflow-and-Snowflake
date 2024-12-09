@@ -1,7 +1,4 @@
 import requests
-import pandas as pd
-import csv
-import re
 import boto3
 from botocore.exceptions import ClientError
 import logging
@@ -9,22 +6,22 @@ import json
 from os import environ as env
 from dotenv import find_dotenv, load_dotenv
 
+#store credential inforamtion about aws
 #firstly get the env info
 #secondly create a function to read csv files
 #thirdly create a function to get json data from API
-#forthly load them into s3 bucket
-#store credential inforamtion about aws
+#load them into s3 bucket
+
 
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
-
-SYMBOLS = ['AAPL', 'AXP', 'BA', 'CAT', 'CSCO', 'CVX', 'DIS', 'DOW', 'GS', 'HD']
+# maximum 25 requests per day with free account
+SYMBOLS = ['AAPL', 'MSFT', 'NVDA', 'XOM', 'NEE', 'PG', 'AMZN', 'JPM', 'BRK.B', 'TSLA', 'PLUG']
 TOPICS = ["OVERVIEW", "ETF_PROFILE", "DIVIDENDS", "INCOME_STATEMENT", "BALANCE_SHEET", "CASH_FLOW", "EARNINGS"]
-#make a tuple from the two lists (symbols and topics)
-#a symbol has to be coupled with all elements in topics.[(topic1, symbol1), (topic2, symbol1)...]
-BUCKET_NAME = "alphavantage-stock-market-ap-northeast-3-dev-s3"
+
+BUCKET_NAME = "alphavantage-stock-market-eu-central-1-dev-s3"
 
 def ingest_json_from_api_to_s3(topic, symbol) -> None:   
     url = f"https://www.alphavantage.co/query?function={topic}&symbol={symbol}&apikey={env.get('API_KEY')}"
@@ -43,7 +40,6 @@ def ingest_json_from_api_to_s3(topic, symbol) -> None:
         logging.error(e)
         return False
     return True
-#how can i pass the object name?
 
 for symbol in SYMBOLS:
     for topic in TOPICS:
